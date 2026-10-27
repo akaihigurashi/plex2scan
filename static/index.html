@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#141414">
+<title>plex2scan</title>
+<meta name="description" content="Check whether your Plex Media Server is affected by Plex2Shell (CVE-2026-96652, CVE-2026-96654, CVE-2026-96655, CVE-2026-96656), the actively exploited takeover of Plex servers older than 1.43.3.10861.">
+<meta name="robots" content="index, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script src="/app.js" defer></script>
+<script src="/trust.js" defer></script>
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"></div>
+<main>
+  <nav class="topbar" aria-label="Site">
+    <a class="back" href="https://shouldipanic.ch">← shouldipanic.ch</a>
+    <a class="gh" href="https://github.com/akaihigurashi/plex2scan" rel="noopener">
+      <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      <span>Source on GitHub</span>
+    </a>
+  </nav>
+
+  <header class="hero">
+    <div class="poster" aria-hidden="true">
+      <svg class="mark" viewBox="0 0 64 64" width="72" height="72">
+        <rect x="2" y="2" width="60" height="60" rx="14" class="mark-bg"/>
+        <path d="M24 18.5v27a2 2 0 0 0 3 1.7l22-13.5a2 2 0 0 0 0-3.4l-22-13.5a2 2 0 0 0-3 1.7Z" class="mark-play"/>
+      </svg>
+      <span class="poster-title">Plex2<br>Shell</span>
+      <span class="poster-sub">CVE-2026-96652 +3</span>
+    </div>
+    <div class="hero-text">
+      <a class="wordmark" href="/" aria-label="plex2scan home"><span>plex</span><span class="wm-2">2</span><span class="wm-scan">scan</span></a>
+      <h1>Is your Plex server affected by Plex2Shell?</h1>
+      <ul class="meta-row" aria-label="Facts">
+        <li class="badge-bad">Exploited since 17 Oct 2026</li>
+        <li>4 CVEs</li>
+        <li>No login needed</li>
+        <li><span>Fixed in&#160;<span class="mono">1.43.3.10861</span></span></li>
+      </ul>
+      <p class="lede">Plex2Shell chains four flaws in Plex Media Server
+        (<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-96652" rel="noopener">CVE-2026-96652</a>,
+        <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-96654" rel="noopener">-96654</a>,
+        <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-96655" rel="noopener">-96655</a>,
+        <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-96656" rel="noopener">-96656</a>)
+        into a full takeover. Attackers are using it to plant cryptominers on servers older than
+        1.43.3.10861. Enter the address of your Plex server to see its version.</p>
+    </div>
+  </header>
+
+  <form id="check" novalidate>
+    <label for="host" class="field-label">Plex server address</label>
+    <div class="field-row">
+      <input id="host" name="host" type="text" inputmode="url" autocomplete="url"
+             autocapitalize="off" spellcheck="false" placeholder="plex.example.ch" required
+             aria-describedby="host-hint">
+      <button type="submit" id="go">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" fill="currentColor"/></svg>
+        <span>Check server</span>
+      </button>
+    </div>
+    <p class="hint" id="host-hint">Your domain or DynDNS name. We check the website and Plex's own port 32400.</p>
+    <label class="consent">
+      <input type="checkbox" id="consent" required>
+      <span>I own this server or have the owner's permission to have it checked.</span>
+    </label>
+    <p class="fineprint">The check asks your server for its start page and its public version
+      information (<span class="mono">/identity</span>), nothing else. No login, no exploit.</p>
+  </form>
+
+  <section id="result" aria-live="polite" tabindex="-1" hidden></section>
+
+  <section class="home" aria-labelledby="home-h">
+    <h2 id="home-h">Plex only at home?</h2>
+    <p>If you never watch from outside, the safest Plex is one the internet can't see. Turn off
+      Remote Access in Plex, remove the port forwarding for 32400 on your router and check that
+      UPnP isn't opening it again. Then update anyway.</p>
+  </section>
+
+  <section class="yourself" aria-labelledby="self-h">
+    <div>
+      <h2 id="self-h">Need more? Run it yourself.</h2>
+      <p>This page checks one server at a time. The free command-line version does a lot more:
+        whole IP ranges, a port scan, every website hosted on the same server, CSV export,
+        and no limits. One Python file, nothing to install.</p>
+    </div>
+    <pre><span class="c"># download one file, run it</span>
+curl -LO https://github.com/akaihigurashi/plex2scan/releases/latest/download/plex2scan.py
+python3 plex2scan.py 203.0.113.0/24
+
+<span class="c"># only scan systems you're allowed to test</span></pre>
+  </section>
+
+  <footer>
+    <h2>How it works</h2>
+    <p>We load the start page of your address, and of port 32400 if it's open, and look for the
+      signs of a Plex Media Server. Every Plex server tells its version on a public page called
+      <span class="mono">/identity</span>; we compare that version with 1.43.3.10861, the first
+      release with the fix.</p>
+    <h2>Rules of use</h2>
+    <p>Only check servers you own or have permission to check.</p>
+    <h2>Privacy</h2>
+    <p>For every check we store the time, your IP address, your browser's name and the checked
+      address, to prevent and investigate abuse. These records are deleted after 30 days,
+      unless they are needed to report or investigate a specific case of misuse.
+      No cookies, no tracking, no third-party content.</p>
+<!--OPERATOR-->
+    <p class="family">plex2scan is part of <a href="https://shouldipanic.ch">shouldipanic.ch</a>,
+      open-source checks for current web vulnerabilities. Not affiliated with Plex, Inc.</p>
+  </footer>
+</main>
+</body>
+</html>
